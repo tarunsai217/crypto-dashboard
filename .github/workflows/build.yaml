@@ -37,19 +37,37 @@ jobs:
         with:
           name: vite-build
           path: dist/
-           
-      # Step 6: Deploy to Vercel
+      
+      # Step 6: Debugging: List files in dist folder
+      - name: List files in dist folder
+        run: ls -al ./dist
+
+      # Step 7: Deploy to Vercel
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          curl -X POST https://api.vercel.com/v12/now/deployments \
-            -H "Authorization: Bearer $VERCEL_TOKEN" \
-            -F "files=@./dist/*" \
-            -F "name=preview-${GITHUB_SHA}" \
-            -F "target=preview" \
-            -F "projectId=$VERCEL_PROJECT_ID"
+          for file in ./dist/*; do
+            curl -X POST https://api.vercel.com/v12/now/deployments \
+              -H "Authorization: Bearer $VERCEL_TOKEN" \
+              -F "files=@$file" \
+              -F "name=preview-${GITHUB_SHA}" \
+              -F "target=preview" \
+              -F "projectId=$VERCEL_PROJECT_ID"
+          done     
+      # Step 6: Deploy to Vercel
+      # - name: Deploy to Vercel
+      #   env:
+      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      #   run: |
+      #     curl -X POST https://api.vercel.com/v12/now/deployments \
+      #       -H "Authorization: Bearer $VERCEL_TOKEN" \
+      #       -F "files=@./dist/*" \
+      #       -F "name=preview-${GITHUB_SHA}" \
+      #       -F "target=preview" \
+      #       -F "projectId=$VERCEL_PROJECT_ID"
 
 
       # Step 5: Deploy to GitHub Pages (optional)
