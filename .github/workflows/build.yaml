@@ -31,6 +31,13 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
+      # Step 5: Upload Build Artifacts
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vite-build
+          path: dist/
+
       # Step 5: Deploy to GitHub Pages (optional)
       # Uncomment if deploying to GitHub Pages
       # - name: Deploy to GitHub Pages
