@@ -38,14 +38,6 @@ jobs:
           name: vite-build
           path: dist/
 
-      # Step 6: Create a release tag
-      - name: Create Release Tag
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the stored token
-        run: |
-          VERSION=$(date +'%Y%m%d%H%M%S')  # Generates a version from current date-time
-          git tag $VERSION
-          git push https://github.com/${{ github.repository }}.git $VERSION
 
 
       # Step 5: Deploy to GitHub Pages (optional)
