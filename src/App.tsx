@@ -6,7 +6,7 @@ import { getCoins, getCoinDetail } from './services/api';
 import { Coin, CoinDetail as ICoinDetail } from './types/crypto';
 
 function App() {
-  console.log("hi")
+  console.log("hiii")
   const [darkMode, setDarkMode] = useState(false); // Default to light mode
   const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState(true);
