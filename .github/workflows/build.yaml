@@ -38,6 +38,13 @@ jobs:
           name: vite-build
           path: dist/
 
+      # Step 6: Create a release tag
+      - name: Create Release Tag
+        run: |
+          VERSION=$(date +'%Y%m%d%H%M%S')  # Generates a version from current date-time
+          git tag $VERSION
+          git push origin $VERSION
+
       # Step 5: Deploy to GitHub Pages (optional)
       # Uncomment if deploying to GitHub Pages
       # - name: Deploy to GitHub Pages
